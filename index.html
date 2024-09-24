@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fibonacci Sequence</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fibonacci Sequence</h1>
+    <p>Input a number to see that many numbers from the Fibonacci sequence:</p>
+
+    <input type="number" id="fibInput" placeholder="Enter a number" />
+    <button onclick="generateFibonacci()">Generate Fibonacci</button>
+
+    <h2>Fibonacci Sequence Output:</h2>
+    <p id="output"></p>
+
+    <script>
+      function fibs(n) {
+        let fibArray = [];
+
+        // Handle cases for n = 1 and n = 2
+        if (n === 1) {
+          fibArray = [0];
+        } else if (n === 2) {
+          fibArray = [0, 1];
+        } else if (n > 2) {
+          // Start the array with [0, 1] for n > 2
+          fibArray = [0, 1];
+          for (let i = 2; i < n; i++) {
+            fibArray.push(fibArray[i - 1] + fibArray[i - 2]);
+          }
+        }
+
+        return fibArray;
+      }
+
+      function generateFibonacci() {
+        const input = document.getElementById("fibInput").value;
+        const result = fibs(parseInt(input));
+        document.getElementById("output").innerText = result.join(", ");
+      }
+    </script>
+  </body>
+</html>
