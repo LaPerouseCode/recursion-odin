@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Merge Sort Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 50px;
+      }
+      input,
+      button {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Merge Sort Example</h1>
+    <p>Enter an array of numbers (comma-separated):</p>
+    <input
+      type="text"
+      id="arrayInput"
+      placeholder="e.g. 3, 2, 1, 13, 8, 5, 0, 1"
+    />
+    <button onclick="sortArray()">Sort Array</button>
+
+    <h2>Sorted Array:</h2>
+    <p id="output"></p>
+
+    <script>
+      function mergeSort(arr) {
+        if (arr.length <= 1) {
+          return arr;
+        }
+
+        const mid = Math.floor(arr.length / 2);
+        const left = mergeSort(arr.slice(0, mid));
+        const right = mergeSort(arr.slice(mid));
+
+        return merge(left, right);
+      }
+
+      function merge(left, right) {
+        const sortedArray = [];
+        let i = 0; // index for left
+        let j = 0; // index for right
+
+        while (i < left.length && j < right.length) {
+          if (left[i] < right[j]) {
+            sortedArray.push(left[i]);
+            i++;
+          } else {
+            sortedArray.push(right[j]);
+            j++;
+          }
+        }
+
+        // Add any remaining elements from left or right
+        return sortedArray.concat(left.slice(i)).concat(right.slice(j));
+      }
+
+      function sortArray() {
+        const input = document.getElementById("arrayInput").value;
+
+        // Split the input string, convert to numbers, and filter out any invalid entries
+        const array = input
+          .split(",")
+          .map((num) => parseFloat(num.trim())) // Use parseFloat to handle decimal numbers too
+          .filter((num) => !isNaN(num)); // Remove any NaN values
+
+        // Check if the array is empty
+        if (array.length === 0) {
+          document.getElementById("output").innerText =
+            "Please enter a valid array of numbers.";
+          return;
+        }
+
+        const sortedArray = mergeSort(array);
+        document.getElementById("output").innerText = sortedArray.join(", ");
+      }
+    </script>
+  </body>
+</html>
