@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fibonacci Sequence (Recursive)</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fibonacci Sequence</h1>
+    <p>Input a number to see that many numbers from the Fibonacci sequence:</p>
+
+    <input type="number" id="fibInput" placeholder="Enter a number" />
+    <button onclick="generateFibonacciRec()">Generate Fibonacci</button>
+
+    <h2>Fibonacci Sequence Output:</h2>
+    <p id="output"></p>
+
+    <script>
+      function fibsRec(n) {
+        console.log("This was printed recursively");
+        // If n is 1, return an array with the first Fibonacci number
+        if (n === 1) {
+          return [0];
+        }
+        // If n is 2, return an array with the first two Fibonacci numbers
+        if (n === 2) {
+          return [0, 1];
+        }
+
+        // Get the Fibonacci sequence for the previous number (n-1)
+        const fibArray = fibsRec(n - 1);
+
+        // Calculate the next Fibonacci number
+        const nextFib =
+          fibArray[fibArray.length - 1] + fibArray[fibArray.length - 2];
+
+        // Add the next Fibonacci number to the array
+        fibArray.push(nextFib);
+
+        // Return the complete Fibonacci sequence
+        return fibArray;
+      }
+
+      function generateFibonacciRec() {
+        const input = parseInt(document.getElementById("fibInput").value);
+        const result = fibsRec(input);
+        document.getElementById("output").innerText = result.join(", ");
+      }
+    </script>
+  </body>
+</html>
